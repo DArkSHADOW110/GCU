@@ -190,7 +190,7 @@ export default function DashboardPage() {
               <div key={t.id} className="flex justify-between items-center text-sm py-3 px-3 min-h-[56px] rounded-xl hover:bg-white/5 transition-colors duration-200 border-b border-white/5 last:border-0 active:scale-[0.98]">
                 <div className="flex flex-col justify-center">
                   <span className="text-white/90 font-medium text-base md:text-sm">{t.counterparty ?? t.remark}</span>
-                  <span className="text-xs text-slate-400 mt-0.5">{t.remark}</span>
+                  <span className="text-xs text-slate-400 mt-0.5">{t.counterparty ? t.remark : t.category ?? ""}</span>
                 </div>
                 <div className="text-right flex items-center">
                   <p
@@ -199,7 +199,7 @@ export default function DashboardPage() {
                     }
                   >
                     {t.type === "credit" ? "+" : "-"}
-                    {formatCurrency(Number(t.amount), t.currency)}
+                    {new Intl.NumberFormat("en-LK", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(Number(t.amount))}
                   </p>
                 </div>
               </div>
