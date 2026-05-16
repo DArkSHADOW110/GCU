@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Wallet, Send, Sparkles } from "lucide-react";
+import { LayoutDashboard, Wallet, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const tabs = [
@@ -16,7 +16,7 @@ export function MobileTabBar() {
 
   return (
     <div className="md:hidden fixed bottom-4 left-4 right-4 z-50">
-      <nav className="flex justify-around items-center h-16 px-4 bg-slate-900/60 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl">
+      <nav className="flex justify-around items-center h-16 px-4 bg-[var(--card)] backdrop-blur-[24px] border border-[var(--card-border)] rounded-2xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.4)]">
         {tabs.map(({ href, label, icon: Icon }) => {
           const isActive = pathname === href;
           return (
@@ -25,10 +25,12 @@ export function MobileTabBar() {
               href={href}
               className={cn(
                 "flex flex-col items-center justify-center w-16 h-full transition-all duration-200 active:scale-95",
-                isActive ? "text-cyan-400 drop-shadow-[0_0_8px_rgba(6,182,212,0.8)]" : "text-slate-400 hover:text-white"
+                isActive 
+                  ? "text-primary drop-shadow-[0_0_12px_var(--primary-glow)]" 
+                  : "text-text-tertiary hover:text-text-secondary"
               )}
             >
-              <Icon className="h-6 w-6 mb-1" />
+              <Icon className={cn("h-6 w-6 mb-1", isActive && "animate-pulse-glow")} strokeWidth={1.5} />
               <span className="text-[10px] font-medium tracking-wide">{label}</span>
             </Link>
           );

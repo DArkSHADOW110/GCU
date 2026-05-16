@@ -2,8 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Send, Bot, User } from "lucide-react";
+import { Send, Sparkles, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface Message {
@@ -68,65 +67,97 @@ export function ChatPanel() {
   }
 
   return (
-    <div className="flex h-full flex-col rounded-2xl border border-surface-border bg-surface-card/60">
-      <div className="border-b border-surface-border px-4 py-3">
-        <p className="font-medium text-white">AI Assistant</p>
-        <p className="text-xs text-slate-500">Powered by Groq</p>
+    <div className="flex h-full flex-col">
+      {/* Header */}
+      <div className="border-b border-[var(--border)] px-5 py-4">
+        <div className="flex items-center gap-3">
+          <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary-light shadow-[0_0_20px_var(--primary-glow)]">
+            <Sparkles className="h-5 w-5 text-black" />
+            {/* Pulsing ring */}
+            <span className="absolute inset-0 rounded-xl bg-primary/30 animate-pulse-glow" />
+          </div>
+          <div>
+            <p className="font-semibold text-text-primary">AI Assistant</p>
+            <p className="text-[0.6875rem] text-text-tertiary">Powered by Groq</p>
+          </div>
+        </div>
       </div>
-      <div className="flex-1 space-y-3 overflow-y-auto p-4">
+
+      {/* Chat Messages */}
+      <div className="flex-1 space-y-4 overflow-y-auto p-4 scrollbar-thin">
         {!historyLoaded && (
-          <p className="text-xs text-slate-500 animate-pulse">Loading chat history…</p>
+          <p className="text-xs text-text-tertiary animate-pulse">Loading chat history...</p>
         )}
         {messages.map((m, i) => (
           <ChatMessageRow key={i} message={m} />
         ))}
         {loading && (
-          <p className="text-xs text-slate-500 animate-pulse">Thinking…</p>
+          <div className="flex items-center gap-2 text-text-tertiary">
+            <div className="flex gap-1">
+              <span className="w-2 h-2 bg-primary rounded-full animate-bounce [animation-delay:0ms]" />
+              <span className="w-2 h-2 bg-primary rounded-full animate-bounce [animation-delay:150ms]" />
+              <span className="w-2 h-2 bg-primary rounded-full animate-bounce [animation-delay:300ms]" />
+            </div>
+            <span className="text-xs">Thinking...</span>
+          </div>
         )}
         <div ref={bottomRef} />
       </div>
-      <div className="flex gap-2 border-t border-surface-border p-3">
-        <Input
-          placeholder="Ask me to transfer, pay a bill, or check jars…"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && send()}
-          disabled={loading}
-        />
-        <Button size="icon" onClick={send} disabled={loading}>
-          <Send className="h-4 w-4" />
-        </Button>
+
+      {/* Input */}
+      <div className="border-t border-[var(--border)] p-4">
+        <div className="flex items-center gap-2 p-1 pl-4 bg-[var(--input-bg)] border border-[var(--input-border)] rounded-full transition-all duration-200 focus-within:border-primary focus-within:ring-2 focus-within:ring-[var(--primary-glow)]">
+          <input
+            placeholder="Ask me to transfer, pay a bill, or check jars..."
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && send()}
+            disabled={loading}
+            className="flex-1 bg-transparent text-sm text-text-primary placeholder:text-text-tertiary outline-none"
+          />
+          <button
+            onClick={send}
+            disabled={loading || !input.trim()}
+            className={cn(
+              "flex h-9 w-9 items-center justify-center rounded-full",
+              "bg-gradient-to-br from-primary to-primary-light text-black",
+              "shadow-[0_0_12px_var(--primary-glow)]",
+              "transition-all duration-200",
+              "hover:scale-105 hover:shadow-[0_0_20px_var(--primary-glow)]",
+              "disabled:opacity-50 disabled:hover:scale-100"
+            )}
+          >
+            <Send className="h-4 w-4" />
+          </button>
+        </div>
       </div>
     </div>
   );
 }
 
 function ChatMessageRow({ message: m }: { message: Message }) {
+  const isUser = m.role === "user";
+  
   return (
-    <div
-      className={cn(
-        "flex gap-2",
-        m.role === "user" ? "justify-end" : "justify-start"
-      )}
-    >
-      {m.role === "assistant" && (
-        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-600/30">
-          <Bot className="h-4 w-4 text-brand-300" />
+    <div className={cn("flex gap-3", isUser ? "justify-end" : "justify-start")}>
+      {!isUser && (
+        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 border border-primary/20">
+          <Sparkles className="h-4 w-4 text-primary" />
         </div>
       )}
       <div
         className={cn(
-          "max-w-[85%] rounded-2xl px-3 py-2 text-sm whitespace-pre-wrap",
-          m.role === "user"
-            ? "bg-brand-600 text-white"
-            : "bg-surface-muted text-slate-200"
+          "max-w-[85%] rounded-2xl px-4 py-3 text-sm whitespace-pre-wrap",
+          isUser
+            ? "bg-[var(--ai-user-bubble)] text-[var(--ai-user-bubble-text)] rounded-br-sm"
+            : "bg-[var(--ai-assistant-bubble)] border border-[var(--ai-assistant-bubble-border)] text-text-primary rounded-bl-sm"
         )}
       >
         {m.content}
       </div>
-      {m.role === "user" && (
-        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-surface-muted">
-          <User className="h-4 w-4 text-slate-400" />
+      {isUser && (
+        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-[var(--input-bg)] border border-[var(--border)]">
+          <User className="h-4 w-4 text-text-tertiary" />
         </div>
       )}
     </div>
