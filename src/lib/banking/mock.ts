@@ -19,7 +19,7 @@ export class MockBankingAdapter implements BankingAdapter {
       {
         externalId: `mock-${userExternalId}-1`,
         accountName: "Everyday Checking",
-        accountNumber: "****4521",
+        accountNumber: "104023454521",
         accountType: "checking",
         currency: "LKR",
         balance: 248750.5,
@@ -27,7 +27,7 @@ export class MockBankingAdapter implements BankingAdapter {
       {
         externalId: `mock-${userExternalId}-2`,
         accountName: "Savings Plus",
-        accountNumber: "****8834",
+        accountNumber: "104023458834",
         accountType: "savings",
         currency: "LKR",
         balance: 512000,
