@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "@/lib/auth/options";
 import { LoginForm } from "@/components/auth/login-form";
+import { LoginThemeToggle } from "@/components/auth/login-theme-toggle";
 
 export default async function LoginPage() {
   const session = await getServerSession(authOptions);
@@ -26,6 +27,11 @@ export default async function LoginPage() {
           </defs>
           <rect width="100%" height="100%" fill="url(#grid)" />
         </svg>
+      </div>
+      
+      {/* Theme Toggle */}
+      <div className="fixed top-4 right-4 z-50">
+        <LoginThemeToggle />
       </div>
       
       <LoginForm />

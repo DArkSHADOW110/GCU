@@ -6,7 +6,8 @@ import { MobileChatButton } from "@/components/chat/mobile-chat-button";
 import { MobileTabBar } from "@/components/layout/mobile-tab-bar";
 import { signOut, useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
-import { LogOut, Moon } from "lucide-react";
+import { LogOut } from "lucide-react";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 export function DashboardShell({ children }: { children: React.ReactNode }) {
   const { data: session } = useSession();
@@ -40,7 +41,8 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
             <p className="text-lg md:text-sm font-semibold md:font-normal text-text-primary md:text-text-secondary truncate max-w-[200px] md:max-w-full">
               Welcome back{session?.user?.name ? `, ${session.user.name.split(" ")[0]}` : ""}
             </p>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 md:gap-2">
+              <ThemeToggle />
               <Button 
                 variant="ghost" 
                 size="icon" 
