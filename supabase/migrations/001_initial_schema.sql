@@ -128,10 +128,23 @@ alter table public.scheduled_payments enable row level security;
 alter table public.chat_messages enable row level security;
 
 -- Policies: users can only access own rows (when using anon key + JWT custom claims later)
+drop policy if exists "users_select_own" on public.users;
 create policy "users_select_own" on public.users for select using (auth.uid()::text = id::text);
+
+drop policy if exists "linked_accounts_own" on public.linked_accounts;
 create policy "linked_accounts_own" on public.linked_accounts for all using (auth.uid() = user_id);
+
+drop policy if exists "transactions_own" on public.transactions;
 create policy "transactions_own" on public.transactions for all using (auth.uid() = user_id);
+
+drop policy if exists "jars_own" on public.jars;
 create policy "jars_own" on public.jars for all using (auth.uid() = user_id);
+
+drop policy if exists "contacts_own" on public.contacts;
 create policy "contacts_own" on public.contacts for all using (auth.uid() = user_id);
+
+drop policy if exists "scheduled_payments_own" on public.scheduled_payments;
 create policy "scheduled_payments_own" on public.scheduled_payments for all using (auth.uid() = user_id);
+
+drop policy if exists "chat_messages_own" on public.chat_messages;
 create policy "chat_messages_own" on public.chat_messages for all using (auth.uid() = user_id);
