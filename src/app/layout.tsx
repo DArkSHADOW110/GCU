@@ -5,12 +5,12 @@ import "./globals.css";
 
 const inter = Inter({ 
   subsets: ["latin"], 
-  variable: "--font-geist-sans" 
+  variable: "--font-inter" 
 });
 
 const jetbrainsMono = JetBrains_Mono({ 
   subsets: ["latin"], 
-  variable: "--font-geist-mono" 
+  variable: "--font-jetbrains-mono" 
 });
 
 export const metadata: Metadata = {
@@ -34,7 +34,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased bg-background`}>
+      <body className={`${inter.variable} ${jetbrainsMono.variable} antialiased bg-background`}>
         <Providers>{children}</Providers>
       </body>
     </html>
