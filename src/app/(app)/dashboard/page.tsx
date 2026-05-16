@@ -279,7 +279,7 @@ export default function DashboardPage() {
                         <Tooltip 
                           contentStyle={{ backgroundColor: '#0f172a', borderColor: '#1e293b', borderRadius: '12px', boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.1)' }}
                           itemStyle={{ color: '#fff', fontWeight: 'bold' }}
-                          formatter={(value: number) => [formatCurrency(value), "Amount"]}
+                          formatter={(value) => [formatCurrency(Number(value ?? 0)), "Amount"]}
                           cursor={{fill: 'rgba(255,255,255,0.05)'}}
                         />
                         <Bar dataKey="value" radius={[6, 6, 0, 0]}>
@@ -296,7 +296,7 @@ export default function DashboardPage() {
                         <Tooltip 
                           contentStyle={{ backgroundColor: '#0f172a', borderColor: '#1e293b', borderRadius: '12px', boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.1)' }}
                           itemStyle={{ color: '#fff', fontWeight: 'bold' }}
-                          formatter={(value: number) => [formatCurrency(value), "Amount"]}
+                          formatter={(value) => [formatCurrency(Number(value ?? 0)), "Amount"]}
                         />
                         <Line type="monotone" dataKey="value" stroke="#06b6d4" strokeWidth={3} dot={{ r: 4, fill: '#0f172a', stroke: '#06b6d4', strokeWidth: 2 }} activeDot={{ r: 6, fill: '#06b6d4', stroke: '#0f172a', strokeWidth: 2 }} />
                       </LineChart>
@@ -527,7 +527,15 @@ export default function DashboardPage() {
                       .then((d) => setContacts(d.contacts ?? []));
                   }
                   setIsSendModalOpen(false);
-                  setSendForm({ fromAccountId: "", bankName: "", accountNumber: "", ownerName: "", remarks: "", saveContact: false });
+                  setSendForm({
+                    fromAccountId: "",
+                    bankName: "",
+                    accountNumber: "",
+                    ownerName: "",
+                    remarks: "",
+                    category: "extra",
+                    saveContact: false,
+                  });
                 }}
                 className="w-full bg-gradient-to-r from-cyan-500 to-cyan-400 hover:from-cyan-400 hover:to-cyan-300 text-black font-bold py-6 text-base rounded-xl mt-2 shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all duration-300 active:scale-[0.98]"
               >
