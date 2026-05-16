@@ -47,7 +47,7 @@ export default function DashboardPage() {
         <HeroCard className="md:col-span-2 p-6">
           <div className="relative z-10">
             <div className="flex items-center gap-2 mb-4">
-              <div className="p-2 rounded-lg bg-primary/10">
+              <div className="p-2.5 rounded-xl bg-[var(--icon-bg)]">
                 <Wallet className="h-4 w-4 text-primary" />
               </div>
               <span className="text-sm font-medium text-text-tertiary">Total Net Worth</span>
@@ -117,7 +117,7 @@ export default function DashboardPage() {
                   <div className="absolute -right-8 -top-8 w-24 h-24 bg-primary/10 blur-2xl rounded-full group-hover:bg-primary/20 transition-colors" />
                   
                   <div className="flex items-center justify-between mb-5 relative z-10">
-                    <div className="p-2.5 rounded-lg bg-black/30 text-primary group-hover:bg-primary/20 transition-colors">
+                    <div className="p-2.5 rounded-xl bg-[var(--icon-bg)] text-primary group-hover:bg-primary/20 transition-colors">
                       <CreditCard className="h-5 w-5" />
                     </div>
                     <span className="text-[10px] font-medium uppercase tracking-widest text-text-tertiary">{a.provider || 'Bank'}</span>
@@ -159,7 +159,7 @@ export default function DashboardPage() {
                   className="flex justify-between items-center px-5 py-4 hover:bg-[var(--item-hover)] transition-colors duration-200"
                 >
                   <div className="flex items-center gap-3">
-                    <div className={`p-2 rounded-lg ${t.type === "credit" ? "bg-success/10 text-success" : "bg-[var(--input-bg)] text-text-tertiary"}`}>
+                    <div className={`p-2.5 rounded-xl ${t.type === "credit" ? "bg-[var(--icon-bg-success)] text-success" : "bg-[var(--icon-bg)] text-primary"}`}>
                       {t.type === "credit" ? (
                         <ArrowDownRight className="h-4 w-4" />
                       ) : (

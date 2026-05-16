@@ -141,7 +141,7 @@ function ChatMessageRow({ message: m }: { message: Message }) {
   return (
     <div className={cn("flex gap-3", isUser ? "justify-end" : "justify-start")}>
       {!isUser && (
-        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 border border-primary/20">
+        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-[var(--icon-bg)] border border-primary/10">
           <Sparkles className="h-4 w-4 text-primary" />
         </div>
       )}
